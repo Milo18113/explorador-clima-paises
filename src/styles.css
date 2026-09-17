@@ -66,8 +66,17 @@ body {
 
 .grid-tarjetas {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: repeat(2, 18.3rem);
   gap: 1rem;
+  justify-content: center;
+}
+
+/* Con 2 columnas fijas, en pantallas angostas cada tarjeta queda muy
+   apretada — se cae a 1 columna en vez de forzar el ancho. */
+@media (max-width: 32rem) {
+  .grid-tarjetas {
+    grid-template-columns: 1fr;
+  }
 }
 
 .tarjeta {
@@ -102,6 +111,14 @@ body {
   height: 3rem;
 }
 
+/* bootstrap-icons son glifos de fuente, no <img> — se dimensionan con font-size. */
+i.tarjeta__icono-grande {
+  width: auto;
+  height: auto;
+  font-size: 2.5rem;
+  color: var(--color-acento);
+}
+
 .tarjeta__temperatura {
   font-size: 2.5rem;
   font-weight: 700;
@@ -115,7 +132,7 @@ body {
 /* Fila de horas scrolleable — nunca debe desbordar la tarjeta en pantallas angostas. */
 .fila-horas {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.2rem;
   overflow-x: auto;
   padding-bottom: 0.25rem;
 }

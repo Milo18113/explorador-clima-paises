@@ -1,5 +1,5 @@
 import { useState, type CSSProperties, type FormEvent } from "react";
-import { temaPorAqi, temaPorCondicion, TEMA_PRONOSTICO_SEMANAL, type Tema } from "./domain/tema";
+import { iconoBootstrapPorAqi, temaPorAqi, temaPorCondicion, TEMA_PRONOSTICO_SEMANAL, type Tema } from "./domain/tema";
 import type {
   CalidadAireActual,
   ClimaActual,
@@ -72,7 +72,7 @@ function TarjetaClimaActual({ clima }: { clima: ClimaActual }) {
         <p className="tarjeta__condicion">{clima.condicionDescripcion}</p>
       </header>
       <div className="fila-horas">
-        {clima.horas.map((hora: HoraPronostico) => (
+        {clima.horas.slice(0, 5).map((hora: HoraPronostico) => (
           <div className="hora-item" key={hora.fechaHora}>
             <span className="hora-item__hora">{formatearHora(hora.fechaHora)}</span>
             <img className="hora-item__icono" src={hora.iconoUrl} alt={hora.condicionDescripcion} />
@@ -87,18 +87,20 @@ function TarjetaClimaActual({ clima }: { clima: ClimaActual }) {
 
 function TarjetaCalidadAire({ aire }: { aire: CalidadAireActual }) {
   const tema = temaPorAqi(aire.aqi);
+  const icono = iconoBootstrapPorAqi(aire.aqi);
 
   return (
     <article className="tarjeta tarjeta--calidad-aire" style={estiloTema(tema)}>
       <header className="tarjeta__cabecera">
         <p className="tarjeta__titulo">Calidad del aire</p>
         <div className="tarjeta__principal">
+          <i className={`bi bi-${icono} tarjeta__icono-grande`} aria-hidden="true" />
           <span className="tarjeta__temperatura">{aire.aqi}</span>
         </div>
         <p className="tarjeta__condicion">{tema.etiqueta}</p>
       </header>
       <div className="fila-horas">
-        {aire.horas.map((hora: HoraCalidadAire) => (
+        {aire.horas.slice(0, 5).map((hora: HoraCalidadAire) => (
           <div className="hora-item" key={hora.fechaHora}>
             <span className="hora-item__hora">{formatearHora(hora.fechaHora)}</span>
             <span className="hora-item__temp">{hora.aqi}</span>
@@ -159,8 +161,8 @@ function Tarjetas({ reporte }: { reporte: ReporteClima }) {
   return (
     <div className="grid-tarjetas">
       <TarjetaClimaActual clima={reporte.climaActual} />
-      <TarjetaCalidadAire aire={reporte.calidadAireActual} />
       <TarjetaPronostico pronostico={reporte.pronosticoSemanal} />
+      <TarjetaCalidadAire aire={reporte.calidadAireActual} />
       <TarjetaTendenciaAire tendencia={reporte.tendenciaCalidadAire} />
     </div>
   );
