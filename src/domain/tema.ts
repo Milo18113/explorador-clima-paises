@@ -125,3 +125,11 @@ export function temaPorAqi(aqi: number): Tema {
   if (aqi <= 300) return TEMA_AQI_MUY_DANINO;
   return TEMA_AQI_PELIGROSO;
 }
+
+// Solo para AQI: thumbs en los extremos, círculo de color en los niveles
+// intermedios — nombres de clase de bootstrap-icons, sin el prefijo "bi-".
+export function iconoBootstrapPorAqi(aqi: number): string {
+  if (aqi <= 50) return "hand-thumbs-up-fill";
+  if (aqi <= 300) return "circle-fill";
+  return "hand-thumbs-down-fill";
+}

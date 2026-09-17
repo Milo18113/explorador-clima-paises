@@ -66,14 +66,133 @@ body {
 
 .grid-tarjetas {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: repeat(2, 18.3rem);
   gap: 1rem;
+  justify-content: center;
+}
+
+/* Con 2 columnas fijas, en pantallas angostas cada tarjeta queda muy
+   apretada — se cae a 1 columna en vez de forzar el ancho. */
+@media (max-width: 32rem) {
+  .grid-tarjetas {
+    grid-template-columns: 1fr;
+  }
 }
 
 .tarjeta {
   border-radius: var(--radio-tarjeta);
   padding: 1.25rem;
   min-height: 12rem;
+  background: var(--color-fondo, var(--color-superficie));
+  color: var(--color-texto, inherit);
+}
+
+.tarjeta__cabecera {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.tarjeta__ubicacion,
+.tarjeta__titulo {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.tarjeta__principal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.tarjeta__icono-grande {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* bootstrap-icons son glifos de fuente, no <img> — se dimensionan con font-size. */
+i.tarjeta__icono-grande {
+  width: auto;
+  height: auto;
+  font-size: 2.5rem;
+  color: var(--color-acento);
+}
+
+.tarjeta__temperatura {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.tarjeta__condicion {
+  margin: 0.25rem 0 0;
+  opacity: 0.9;
+}
+
+/* Fila de horas scrolleable — nunca debe desbordar la tarjeta en pantallas angostas. */
+.fila-horas {
+  display: flex;
+  gap: 0.2rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.hora-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 0 0 auto;
+  min-width: 3rem;
+  font-size: 0.85rem;
+}
+
+.hora-item__icono {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.hora-item__temp {
+  font-weight: 600;
+}
+
+.hora-item__lluvia {
+  opacity: 0.75;
+  font-size: 0.75rem;
+}
+
+.lista-dias {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dia-item {
+  display: grid;
+  grid-template-columns: 3rem 1.75rem 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dia-item__nombre {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.dia-item__icono {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.dia-item__lluvia {
+  opacity: 0.75;
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+.dia-item__temps {
+  font-weight: 600;
+  text-align: right;
 }
 
 .mensaje {
