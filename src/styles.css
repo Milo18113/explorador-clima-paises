@@ -1,1 +1,142 @@
-/* Estilos globales, variables de tema y animación shimmer de los skeletons. */
+:root {
+  --radio-tarjeta: 1.25rem;
+  --color-fondo: #0f172a;
+  --color-texto: #e2e8f0;
+  --color-superficie: #1e293b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: system-ui, sans-serif;
+}
+
+.encabezado {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 2rem 1rem 1rem;
+  background: var(--color-fondo);
+  text-align: center;
+}
+
+.encabezado__saludo {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+}
+
+.barra-busqueda {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.barra-busqueda__input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-superficie);
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  font-size: 1rem;
+}
+
+.barra-busqueda__boton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  border: none;
+  background: #4fa8e0;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.contenido {
+  padding: 1rem;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.grid-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+}
+
+.tarjeta {
+  border-radius: var(--radio-tarjeta);
+  padding: 1.25rem;
+  min-height: 12rem;
+}
+
+.mensaje {
+  max-width: 32rem;
+  margin: 2rem auto;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radio-tarjeta);
+  text-align: center;
+}
+
+.mensaje--validacion {
+  background: #3f2f1a;
+  color: #fbbf24;
+}
+
+.mensaje--error {
+  background: #3f1a1a;
+  color: #fca5a5;
+}
+
+.boton-reintentar {
+  margin-top: 0.75rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  border: none;
+  background: #fca5a5;
+  color: #3f1a1a;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Shimmer: banda clara desplazándose sobre background-position, no left/width,
+   para que la animación corra en el compositor y no dispare reflow. */
+.tarjeta--skeleton {
+  background: var(--color-superficie);
+  overflow: hidden;
+  position: relative;
+}
+
+.skeleton-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 150% 0;
+  }
+  to {
+    background-position: -50% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer {
+    animation: none;
+  }
+}
