@@ -1,0 +1,9 @@
+/.claude
+.env
+
+*.txt
+*.zip
+
+node_modules
+dist
+*.local
